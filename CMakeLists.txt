@@ -5,13 +5,20 @@ set(CMAKE_CXX_STANDARD 14)
 
 # Find GTK 4 package
 find_package(PkgConfig REQUIRED)
-pkg_check_modules(GTK4 REQUIRED gtk4)
+pkg_check_modules(GTKMM REQUIRED gtkmm-4.0)
 
 # Include GTK 4 headers and link libraries
-include_directories(${GTK4_INCLUDE_DIRS})
-link_directories(${GTK4_LIBRARY_DIRS})
-add_definitions(${GTK4_CFLAGS_OTHER})
+add_subdirectory(matplotplusplus)
 
 # Set up the executable and link GTK 4 libraries
-add_executable(DSA_Project3 main.cpp)
-target_link_libraries(DSA_Project3 ${GTK4_LIBRARIES})
+add_executable(DSA_Project3
+        main.cpp
+        HomeWindow.h
+        HomeWindow.cpp
+        DataWindow.h
+        DataWindow.cpp
+)
+target_link_libraries(DSA_Project3 matplot)
+target_include_directories(DSA_Project3 PUBLIC ${GTKMM_INCLUDE_DIRS})
+target_link_directories(DSA_Project3 PUBLIC ${GTKMM_LIBRARY_DIRS})
+target_link_libraries(DSA_Project3 ${GTKMM_LIBRARIES})
