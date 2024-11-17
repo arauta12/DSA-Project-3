@@ -9,3 +9,6 @@
 8) Link gtk4 to CMAKE (use cmake file in github)
 9) Run main.cpp. If it works, you should see a small window.
 
+# How to Install Gtkmm 4.0 (for Windows)
+1) In msys2 terminal, run this: pacman -S mingw-w64-x86_64-gtkmm-4.0
+2) Follow CMAKE to link it locally to your machine.
