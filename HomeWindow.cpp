@@ -12,8 +12,16 @@ HomeWindow::HomeWindow() : sort_button_("Sort!") {
 
     set_child(main_grid_);
 
-    picture_ = Gtk::make_managed<Gtk::Image>("usde.svg");
-    main_grid_.attach(*picture_, 0, 0);
+    picture_ = Gio::File::create_for_path("../Images/usde.svg");
+    if (picture_->query_exists()) {
+        std::cout << "Adding pic..." << std::endl;
+        std::cout << picture_->get_path() << std::endl;
+        auto svg_img = Gtk::make_managed<Gtk::Picture>();
+        svg_img->set_file(picture_);
+        main_grid_.attach(*svg_img, 0, 0);
+    } else {
+        std::cout << "No picture found" << std::endl;
+    }
 
     setSortSignal();
     setSortButtonProperties();
@@ -41,7 +49,7 @@ void HomeWindow::setGridProperties() {
 void HomeWindow::setSortButtonProperties() {
     auto label = Gtk::make_managed<Gtk::Label>("Sort!");
     sort_button_.set_child(*label);
-    main_grid_.attach(sort_button_, 1 , 0, 20, 20);
+    main_grid_.attach(sort_button_, 1, 1, 20, 20);
 }
 
 void HomeWindow::setCheckButtonProperties() {

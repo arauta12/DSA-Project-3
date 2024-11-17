@@ -10,7 +10,7 @@
 
 class HomeWindow : public Gtk::Window {
     Gtk::Grid main_grid_;
-    Gtk::Image* picture_;
+    Glib::RefPtr<Gio::File> picture_;
     Gtk::Button sort_button_;
     Gtk::CheckButton* max_;
     Gtk::CheckButton* min_;
