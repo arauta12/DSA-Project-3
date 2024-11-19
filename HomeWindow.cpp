@@ -1,41 +1,63 @@
 //
 // Created by andre on 11/16/2024.
 // Logo from: https://logos.fandom.com/wiki/United_States_Department_of_Education
+// Search icon from: https://icon-library.com/icon/magnifying-glass-icon-transparent-29.html
 //
 
 #include "HomeWindow.h"
 #include "DataWindow.h"
 
 HomeWindow::HomeWindow() : sort_button_("Sort!") {
+    std::cout << "Making home window..." << std::endl;
+
+    // Window basic properties
     set_title("Public School Query");
     set_default_size(500, 600);
 
-    set_child(main_grid_);
+    // Add image to window
+    setHomeImage();
 
-    picture_ = Gio::File::create_for_path("../Images/usde.svg");
+    // Set window widgets
+    setSortSignal();
+    setSortButtonProperties();
+    setCheckButtonProperties();
+    setGridProperties();
+    setFiltersDropdown();
+    setSortOptions();
+
+    set_child(main_grid_);
+}
+
+void HomeWindow::setHomeImage() {
+    auto picture_ = Gio::File::create_for_path("../Images/usde.svg");
     if (picture_->query_exists()) {
-        std::cout << "Adding pic..." << std::endl;
-        std::cout << picture_->get_path() << std::endl;
+        std::cout << "Adding USDE pic..." << std::endl;
         auto svg_img = Gtk::make_managed<Gtk::Picture>();
         svg_img->set_file(picture_);
         main_grid_.attach(*svg_img, 0, 0);
     } else {
         std::cout << "No picture found" << std::endl;
     }
+}
 
-    setSortSignal();
-    setSortButtonProperties();
-    setCheckButtonProperties();
-    setGridProperties();
-
-    std::cout << std::boolalpha << "Min is initially: " << min_->get_active() << std::endl;
+void HomeWindow::setSearchIcon(Gtk::Grid& g) {
+    auto picture_ = Gio::File::create_for_path("../Images/mag_glass.jpg");
+    if (picture_->query_exists()) {
+        std::cout << "Adding Search icon..." << std::endl;
+        auto jpg_img = Gtk::make_managed<Gtk::Picture>();
+        jpg_img->set_file(picture_);
+        g.attach(*jpg_img, 0, 0);
+    } else {
+        std::cout << "No picture found" << std::endl;
+    }
 }
 
 void HomeWindow::sortFunction() {
-    std::cout << "This button works" << std::endl;
+    std::cout << "Sorting..." << std::endl;
     auto app_data = Gtk::Application::create("data.com");
     int status = app_data->make_window_and_run<DataWindow>(0, NULL);
     if (status != 0) throw std::runtime_error("Error making application window");
+    std::cout << "Returning to Home..." << std::endl;
 }
 
 void HomeWindow::setSortSignal() {
@@ -47,12 +69,19 @@ void HomeWindow::setGridProperties() {
 }
 
 void HomeWindow::setSortButtonProperties() {
+    std::cout << "Setting sort button..." << std::endl;
+    Gtk::Grid pic_g;
     auto label = Gtk::make_managed<Gtk::Label>("Sort!");
-    sort_button_.set_child(*label);
-    main_grid_.attach(sort_button_, 1, 1, 20, 20);
+    setSearchIcon(pic_g);
+    pic_g.attach(*label, 0, 1);
+    sort_button_.set_child(pic_g);
+
+    sort_button_.set_margin(5);
+    main_grid_.attach(sort_button_, 1, 1, 5, 5);
 }
 
 void HomeWindow::setCheckButtonProperties() {
+    std::cout << "Setting radio buttons..." << std::endl;
     max_ = Gtk::make_managed<Gtk::CheckButton>("Max");
     min_ = Gtk::make_managed<Gtk::CheckButton>("Min");
     min_->set_group(*max_);
@@ -60,6 +89,34 @@ void HomeWindow::setCheckButtonProperties() {
 
     main_grid_.attach(*max_, 21, 0);
     main_grid_.attach(*min_, 21, 20);
+}
+
+void HomeWindow::setFiltersDropdown() {
+    std::cout << "Setting filter options..." << std::endl;
+    filters_.append("(Select School Grade)");
+    filters_.append("PreK");
+    filters_.append("Elementary");
+    filters_.append("Middle");
+    filters_.append("High");
+    filters_.append("Other");
+    filters_.set_active_text("(Select School Grade)");
+
+    filters_.set_margin(5);
+
+    main_grid_.attach(filters_, 0, 1, 2, 2);
+}
+
+void HomeWindow::setSortOptions() {
+    std::cout << "Setting sort options..." << std::endl;
+    sort_options_.append("(Select Sort Category)");
+    sort_options_.append("Population");
+    sort_options_.append("Free/reduced lunch");
+    sort_options_.append("Student-to-Faculty");
+    sort_options_.set_active_text("(Select Sort Category)");
+
+    filters_.set_margin(5);
+
+    main_grid_.attach(sort_options_, 0, 3, 2, 2);
 }
 
 

@@ -11,10 +11,14 @@
 class DataWindow : public Gtk::Window {
     Gtk::Grid data_grid_;
     Gtk::Button resort_button_;
+    Gtk::Button view_stats_;
 protected:
     void setResortSignal();
     void resortFunction();
     void setResortButtonProperties();
+    void setStatsButton();
+    void statButtonSignal();
+    void getStats();
 public:
     DataWindow();
 };

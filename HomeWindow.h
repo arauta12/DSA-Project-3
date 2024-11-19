@@ -10,17 +10,22 @@
 
 class HomeWindow : public Gtk::Window {
     Gtk::Grid main_grid_;
-    Glib::RefPtr<Gio::File> picture_;
     Gtk::Button sort_button_;
+    Gtk::ComboBoxText filters_;
+    Gtk::ComboBoxText sort_options_;
     Gtk::CheckButton* max_;
     Gtk::CheckButton* min_;
-    bool max_selected_;
+
+    void setHomeImage();
+    void setSearchIcon(Gtk::Grid& g);
 protected:
     void setSortSignal();
     void sortFunction();
     void setGridProperties();
     void setSortButtonProperties();
     void setCheckButtonProperties();
+    void setFiltersDropdown();
+    void setSortOptions();
 public:
     HomeWindow();
 };
