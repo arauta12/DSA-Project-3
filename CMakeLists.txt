@@ -15,5 +15,6 @@ add_definitions(${GTK4_CFLAGS_OTHER})
 # Set up the executable and link GTK 4 libraries
 add_executable(DSA_Project3 main.cpp
         School.h
-        Graphing.h)
+        Graphing.h
+        FileIO.h)
 target_link_libraries(DSA_Project3 ${GTK4_LIBRARIES})
