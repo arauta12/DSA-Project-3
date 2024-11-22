@@ -35,6 +35,6 @@ struct Graph{
             //merege_time.push_back(m_time);
             //quick_time.push_back(q_time);
         }
-        return make_pair(merge_time,quick_time);
+        return make_pair(merge_time,quick_time); //comment so I can push
     }
 };
