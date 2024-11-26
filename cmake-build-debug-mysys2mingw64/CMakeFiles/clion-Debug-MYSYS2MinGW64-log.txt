@@ -1,6 +1,0 @@
-"C:\Program Files\JetBrains\CLion 2023.3.2\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug "-DCMAKE_MAKE_PROGRAM=C:/Program Files/JetBrains/CLion 2023.3.2/bin/ninja/win/x64/ninja.exe" -DCMAKE_CXX_COMPILER=C:/msys64/mingw64/bin/g++.exe -G Ninja -S C:\Users\caleb\CLionProjects\DSA-Project-3 -B C:\Users\caleb\CLionProjects\DSA-Project-3
-CMake Error at CMakeLists.txt:1 (cmake_minimum_required):
-  CMake 3.29 or higher is required.  You are running version 3.27.8
-
-
--- Configuring incomplete, errors occurred!
