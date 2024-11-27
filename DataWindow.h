@@ -15,7 +15,7 @@ class DataWindow : public Gtk::Window {
     Gtk::Grid data_grid_;
     Gtk::Button resort_button_;
     Gtk::Button view_stats_;
-    vector<School*> schools_;
+    std::vector<School*> schools_;
 protected:
     void setResortSignal();
     void resortFunction();

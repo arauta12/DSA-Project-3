@@ -7,18 +7,15 @@
 #include "School.h"
 #pragma once
 
-using namespace std;
-
 struct Filereading{
-    vector<School*> readFile(){
-        vector<School*> schools;
-        ifstream file("Public_School_Characteristics_-_Current.csv");
-        string line;
+    void readFile(std::vector<School*>& schools){
+        std::ifstream file("Public_School_Characteristics_-_Current.csv");
+        std::string line;
         bool first = true;
         while(getline(file,line)){
-            vector<string> data;
-            string value;
-            stringstream ss(line);
+            std::vector<std::string> data;
+            std::string value;
+            std::stringstream ss(line);
             if(first){
                 first = false;
                 continue;
@@ -34,19 +31,18 @@ struct Filereading{
 
         }
         file.close();
-        return schools;
     }
 
-    vector<School*> filterState(const vector<School*>& schools,string targetstate){
-        vector<School*> filtered_schools;
+    std::vector<School*> filterState(const std::vector<School*>& schools,std::string targetstate){
+        std::vector<School*> filtered_schools;
         copy_if(schools.begin(),schools.end(), back_inserter(filtered_schools),[targetstate](School* school) {
             return school->state == targetstate;
         });
         return filtered_schools;
     }
 
-    vector<School*> filterLevel(const vector<School*>& schools, string targetlevel){
-        vector<School*> filtered_schools;
+    std::vector<School*> filterLevel(const std::vector<School*>& schools, std::string targetlevel){
+        std::vector<School*> filtered_schools;
         copy_if(schools.begin(),schools.end(), back_inserter(filtered_schools),[targetlevel](School* school) {
             return school->level == targetlevel;
         });

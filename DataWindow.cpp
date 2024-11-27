@@ -4,7 +4,7 @@
 
 #include "DataWindow.h"
 #include "FileIO.h"
-// #include "Graphing.h"
+#include "Graphing.h"
 
 DataWindow::DataWindow() {
 
@@ -50,9 +50,9 @@ void DataWindow::setStatsButton() {
 //FIXME: Add action
 void DataWindow::getStats() {
     std::cout << "Getting stats..." << std::endl;
-    // vector<float> v1 = {1, 2, 3, 4, 5}, v2 = {0, 2, 6, 7, 8};
-    // Graph graph;
-    // graph.graphTimes(v1, v2);
+    std::vector<float> v1 = {1, 2, 3, 4, 5}, v2 = {0, 2, 6, 7, 8};
+    Graph graph;
+    graph.graphTimes(v1, v2);
 }
 
 
@@ -77,22 +77,22 @@ void DataWindow::addRow(School* s, int r) {
     data_grid_.attach(*label, 4, r);
 
     int total = s->population;
-    string res = "N/A";
+    std::string res = "N/A";
     if (total > 0) {
         int m_ratio = round(stof(s->totmen)/total * 100);
         int f_ratio = round(stof(s->totfem)/total * 100);
-        res = to_string(m_ratio) + ":" + to_string(f_ratio);
+        res = std::to_string(m_ratio) + ":" + std::to_string(f_ratio);
     }
     label = Gtk::make_managed<Gtk::Label>(res);
     data_grid_.attach(*label, 5, r);
 
     res = "N/A";
-    if ((int)s->freereducedlunch > 0) res = to_string((int)s->freereducedlunch);
+    if ((int)s->freereducedlunch > 0) res = std::to_string((int)s->freereducedlunch);
     label = Gtk::make_managed<Gtk::Label>(res);
     data_grid_.attach(*label, 6, r);
 
     res = "N/A";
-    if ((int)s->studentfacratio > 0) res = to_string((int)s->studentfacratio);
+    if ((int)s->studentfacratio > 0) res = std::to_string((int)s->studentfacratio);
     label = Gtk::make_managed<Gtk::Label>(res);
     data_grid_.attach(*label, 7, r);
 }
@@ -103,7 +103,7 @@ void DataWindow::setTable() {
     filereading.readFile(schools_);
     data_grid_.set_column_spacing(5);
 
-    vector<string> headers = {"School Name", "City", "County", "Grade Levels", "Students"
+    std::vector<std::string> headers = {"School Name", "City", "County", "Grade Levels", "Students"
                             , "M-F ratio", "Lunch Type", "Student-to-Faculty ratio"};
 
     for (int i = 0; i < headers.size(); i++) {
@@ -115,7 +115,7 @@ void DataWindow::setTable() {
         data_grid_.attach(*separator, i, 1);
     }
 
-    for (int i = 0; i < min((int)schools_.size(), 10); ++i) addRow(schools_[i], i + 2);
+    for (int i = 0; i < std::min((int)schools_.size(), 10); ++i) addRow(schools_[i], i + 2);
     main_grid_.attach(data_grid_, 0, 0, 1, 1);
 }
 

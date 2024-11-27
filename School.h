@@ -3,9 +3,8 @@
 #include <vector>
 #pragma once
 
-using namespace std;
 struct School{
-    string x, y, objid, ncessch, yr, stabr, leaid, stid, lea_name, schname, street, street2, city, state, zip, zip4,
+    std::string x, y, objid, ncessch, yr, stabr, leaid, stid, lea_name, schname, street, street2, city, state, zip, zip4,
             phone, charter, virt, gslo, gshi, level, status, schtype, schstat, towntype, county, totfrlunch, freelunch, reducedlunch,
             directcert, pk, k, first, second, third, fourth, fifth, sixth, seventh, eighth, ninth, tenth, eleventh, twelfth, thirteenth,
             ug, ae, totmen, totfem, stupop, member, fulltime, stutofratio, amalm, amalf, am, asalm, asalf, as, blalm, blalf, bl,
@@ -16,7 +15,7 @@ struct School{
 
     //Important string values are schname, street, city, state, level
     //Important float values are population, freereducedlunch, and studentfacratio
-    School(vector<string> values){
+    School(std::vector<std::string> values){
         int i = 0;
         x = values[i++]; y = values[i++]; objid = values[i++]; ncessch = values[i++]; yr = values[i++];
         stabr = values[i++]; leaid = values[i++]; stid = values[i++]; lea_name = values[i++]; schname = values[i++];
