@@ -6,6 +6,7 @@
 #define HOMEWINDOW_H
 
 #include <iostream>
+#include "FileIO.h"
 #include <gtkmm-4.0/gtkmm.h>
 
 class HomeWindow : public Gtk::Window {
