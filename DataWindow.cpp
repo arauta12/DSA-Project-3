@@ -119,8 +119,8 @@ void DataWindow::setTable() {
 
 void DataWindow::filterData(std::vector<School*>* schools_, bool max, std::string level,
                     std::string state, std::string sort_opt) {
-    filtered_data_ = Filereading::filterLevel(*schools_, level);
-    filtered_data_ = Filereading::filterState(filtered_data_, state);
+    filtered_data_ = Filereading::filterLevel(schools_, level);
+    filtered_data_ = Filereading::filterState(&filtered_data_, state);
     std::cout << "filtered data has size: " << filtered_data_.size() << std::endl;
 }
 
