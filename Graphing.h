@@ -14,6 +14,8 @@ struct Graph{
         }
         x_axis.push_back(size);
         matplot::plot(x_axis, merge, quick);
+
+        //FIXME: Use delay thread on input newline into cin?
         matplot::show();
     }
 

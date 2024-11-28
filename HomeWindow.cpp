@@ -18,12 +18,14 @@ HomeWindow::HomeWindow() : sort_button_("Sort!") {
     setHomeImage();
 
     // Set window widgets
+    setData();
     setSortSignal();
     setSortButtonProperties();
     setCheckButtonProperties();
     setGridProperties();
     setFiltersDropdown();
     setSortOptions();
+    setStateInput();
 
     set_child(main_grid_);
 }
@@ -52,10 +54,17 @@ void HomeWindow::setSearchIcon(Gtk::Grid& g) {
     }
 }
 
+//FIXME: Include school data
 void HomeWindow::sortFunction() {
     std::cout << "Sorting..." << std::endl;
     auto app_data = Gtk::Application::create("data.com");
-    int status = app_data->make_window_and_run<DataWindow>(0, NULL);
+    std::cout << "Data parameters: max?)" << max_->get_active() << ", state: "
+                << static_cast<std::string>(state_entry_->get_text()) << ", filter:"
+                << static_cast<std::string>(filters_.get_active_text()) << std::endl;
+    int status = app_data->make_window_and_run<DataWindow>(0, NULL, &schools_, max_->get_active(),
+                                                            static_cast<std::string>(filters_.get_active_text()),
+                                                            static_cast<std::string>(state_entry_->get_text()),
+                                                            static_cast<std::string>(sort_options_.get_active_text()));
     if (status != 0) throw std::runtime_error("Error making application window");
     std::cout << "Returning to Home..." << std::endl;
 }
@@ -94,7 +103,7 @@ void HomeWindow::setCheckButtonProperties() {
 void HomeWindow::setFiltersDropdown() {
     std::cout << "Setting filter options..." << std::endl;
     filters_.append("(Select School Grade)");
-    filters_.append("PreK");
+    filters_.append("Prekindergarten");
     filters_.append("Elementary");
     filters_.append("Middle");
     filters_.append("High");
@@ -118,6 +127,20 @@ void HomeWindow::setSortOptions() {
 
     main_grid_.attach(sort_options_, 0, 3, 2, 2);
 }
+
+void HomeWindow::setData() {
+    Filereading::readFile(schools_);
+}
+
+void HomeWindow::setStateInput() {
+    state_entry_ = Gtk::EntryBuffer::create();
+    state_filter_field_.set_placeholder_text("Enter State abbreviation: ");
+    state_filter_field_.set_buffer(state_entry_);
+    state_filter_field_.set_margin(5);
+    main_grid_.attach(state_filter_field_, 0, 10, 2, 2);
+}
+
+
 
 
 

@@ -6,13 +6,15 @@
 #include "FileIO.h"
 #include "Graphing.h"
 
-DataWindow::DataWindow() {
+DataWindow::DataWindow(std::vector<School*>* schools_, bool max, std::string level,
+                    std::string state, std::string sort_opt) {
 
     // Setting basic window properties
     std::cout << "Setting Data Window..." << std::endl;
     set_title("Query Results");
     set_default_size(500, 600);
 
+    filterData(schools_, max, level, state, sort_opt);
     setTable();
 
     set_child(main_grid_);
@@ -32,7 +34,6 @@ void DataWindow::resortFunction() {
     close();
 }
 
-
 void DataWindow::setResortButtonProperties() {
     auto label = Gtk::make_managed<Gtk::Label>("Resort!");
     resort_button_.set_child(*label);
@@ -47,14 +48,13 @@ void DataWindow::setStatsButton() {
 }
 
 // Action performed when clicking stat button
-//FIXME: Add action
+//FIXME: Add sorting data
 void DataWindow::getStats() {
     std::cout << "Getting stats..." << std::endl;
     std::vector<float> v1 = {1, 2, 3, 4, 5}, v2 = {0, 2, 6, 7, 8};
     Graph graph;
     graph.graphTimes(v1, v2);
 }
-
 
 void DataWindow::statButtonSignal() {
     view_stats_.signal_clicked().connect(sigc::mem_fun(*this, &DataWindow::getStats));
@@ -97,10 +97,8 @@ void DataWindow::addRow(School* s, int r) {
     data_grid_.attach(*label, 7, r);
 }
 
-
+//FIXME: Move to Home?
 void DataWindow::setTable() {
-    Filereading filereading;
-    filereading.readFile(schools_);
     data_grid_.set_column_spacing(5);
 
     std::vector<std::string> headers = {"School Name", "City", "County", "Grade Levels", "Students"
@@ -115,8 +113,16 @@ void DataWindow::setTable() {
         data_grid_.attach(*separator, i, 1);
     }
 
-    for (int i = 0; i < std::min((int)schools_.size(), 10); ++i) addRow(schools_[i], i + 2);
+    for (int i = 0; i < std::min((int)filtered_data_.size(), 10); ++i) addRow(filtered_data_[i], i + 2);
     main_grid_.attach(data_grid_, 0, 0, 1, 1);
 }
+
+void DataWindow::filterData(std::vector<School*>* schools_, bool max, std::string level,
+                    std::string state, std::string sort_opt) {
+    filtered_data_ = Filereading::filterLevel(*schools_, level);
+    filtered_data_ = Filereading::filterState(filtered_data_, state);
+    std::cout << "filtered data has size: " << filtered_data_.size() << std::endl;
+}
+
 
 

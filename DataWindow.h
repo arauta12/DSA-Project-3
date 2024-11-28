@@ -15,19 +15,21 @@ class DataWindow : public Gtk::Window {
     Gtk::Grid data_grid_;
     Gtk::Button resort_button_;
     Gtk::Button view_stats_;
-    std::vector<School*> schools_;
+    std::vector<School*> filtered_data_;
 protected:
     void setResortSignal();
     void resortFunction();
     void setResortButtonProperties();
     void setStatsButton();
     void statButtonSignal();
-
-    void addRow(School* s, int r);
     void setTable();
+    void addRow(School* s, int r);
     void getStats();
+    void filterData(std::vector<School*>* schools_, bool max, std::string level,
+                    std::string state, std::string sort_opt);
 public:
-    DataWindow();
+    DataWindow(std::vector<School*>* schools_, bool max, std::string level,
+                    std::string state, std::string sort_opt);
 };
 
 
