@@ -2,10 +2,13 @@
 #include <vector>
 #include "School.h"
 #include <functional>
+#include <string>
+#include <cctype>
+#include <algorithm>
 
-void quickSort(std::vector<School*> &schools, int low, int high, std::function<bool(School*, School*)> compare);
-void mergeSort(std::vector<School*> &schools, int low, int high, std::function<bool(School*, School*)> compare);
-
+std::function<bool(School*, School*)> getComparisonFunction(const std::string &attribute, bool ascending);
+void quickSort(std::vector<School*> &schools, int low, int high, const std::function<bool(School*, School*)> &compare);
+void mergeSort(std::vector<School*> &schools, int low, int high, const std::function<bool(School*, School*)> &compare);
 
 #ifndef DSA_PROJECT3_SORTING_H
 #define DSA_PROJECT3_SORTING_H
