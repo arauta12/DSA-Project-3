@@ -6,11 +6,10 @@
 #include "FileIO.h"
 #include "Graphing.h"
 
-DataWindow::DataWindow(std::vector<School*>* schools_, bool max, std::string level,
+DataWindow::DataWindow(std::vector<School*>& schools_, bool max, std::string level,
                     std::string state, std::string sort_opt) {
 
     // Setting basic window properties
-    std::cout << "Setting Data Window..." << std::endl;
     set_title("Query Results");
     set_default_size(500, 600);
 
@@ -117,10 +116,10 @@ void DataWindow::setTable() {
     main_grid_.attach(data_grid_, 0, 0, 1, 1);
 }
 
-void DataWindow::filterData(std::vector<School*>* schools_, bool max, std::string level,
+void DataWindow::filterData(std::vector<School*>& schools_, bool max, std::string level,
                     std::string state, std::string sort_opt) {
     filtered_data_ = Filereading::filterLevel(schools_, level);
-    filtered_data_ = Filereading::filterState(&filtered_data_, state);
+    filtered_data_ = Filereading::filterState(filtered_data_, state);
     std::cout << "filtered data has size: " << filtered_data_.size() << std::endl;
 }
 

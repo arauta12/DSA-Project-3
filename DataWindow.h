@@ -25,10 +25,10 @@ protected:
     void setTable();
     void addRow(School* s, int r);
     void getStats();
-    void filterData(std::vector<School*>* schools_, bool max, std::string level,
+    void filterData(std::vector<School*>& schools_, bool max, std::string level,
                     std::string state, std::string sort_opt);
 public:
-    DataWindow(std::vector<School*>* schools_, bool max, std::string level,
+    DataWindow(std::vector<School*>& schools_, bool max, std::string level,
                     std::string state, std::string sort_opt);
 };
 
