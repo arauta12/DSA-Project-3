@@ -1,4 +1,4 @@
-
+//FIXME: We need to figure out a way to determine which variable we're comparing and make a min version
 #include "Sorting.h"
 int partition(std::vector<School*> &schools, int low, int high, std::function<bool(School*, School*)> compare){
     School* pivot = schools[high];
