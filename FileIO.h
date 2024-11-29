@@ -33,7 +33,7 @@ struct Filereading{
         file.close();
     }
 
-    static std::vector<School*> filterState(const std::vector<School*>* schools, std::string targetstate){
+    static std::vector<School*> filterState(const std::vector<School*>& schools, std::string targetstate){
         std::vector<School*> filtered_schools;
         copy_if(schools.begin(),schools.end(), back_inserter(filtered_schools),[targetstate](School* school) {
             return school->state == targetstate;
@@ -41,11 +41,29 @@ struct Filereading{
         return filtered_schools;
     }
 
-    static std::vector<School*> filterLevel(const std::vector<School*>* schools, std::string targetlevel){
+    static std::vector<School*> filterLevel(const std::vector<School*>& schools, std::string targetlevel){
         std::vector<School*> filtered_schools;
         copy_if(schools.begin(),schools.end(), back_inserter(filtered_schools),[targetlevel](School* school) {
             return school->level == targetlevel;
         });
         return filtered_schools;
     }
+
+    static std::vector<School*> filter(std::vector<School*>& schools, std::string targetstate, std::string targetlevel){
+        std::vector<School*> filtered_schools;
+        if(targetstate != "Enter State abbreviation: "){
+            for(char& c: targetstate){
+                c = std::toupper(c);
+            }
+            filtered_schools = filterState(schools,targetstate);
+        }
+        else
+            filtered_schools = schools;
+        if(targetlevel != "(Select School Grade)"){
+            filtered_schools = filterLevel(filtered_schools,targetlevel);
+        }
+        return filtered_schools; //If this is empty that means that the state the user entered doesn't exist
+    }
+
+
 };
