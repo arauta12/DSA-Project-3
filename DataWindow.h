@@ -11,7 +11,6 @@
 #include "School.h"
 
 class DataWindow : public Gtk::Window {
-    Gtk::Grid main_grid_;
     Gtk::Grid data_grid_;
     Gtk::Button resort_button_;
     Gtk::Button view_stats_;

@@ -12,11 +12,13 @@ DataWindow::DataWindow(std::vector<School*>& schools_, bool max, std::string lev
     // Setting basic window properties
     set_title("Query Results");
     set_default_size(500, 600);
+    set_resizable(false);
 
     filterData(schools_, max, level, state, sort_opt);
     setTable();
 
-    set_child(main_grid_);
+    set_child(data_grid_);
+
 
     // Setting window widgets
     setResortButtonProperties();
@@ -28,31 +30,28 @@ void DataWindow::setResortSignal() {
     resort_button_.signal_clicked().connect(sigc::mem_fun(*this, &DataWindow::resortFunction));
 }
 
-void DataWindow::resortFunction() {
-    std::cout << "Close window..." << std::endl;
-    close();
-}
+void DataWindow::resortFunction() { close(); }
 
 void DataWindow::setResortButtonProperties() {
     auto label = Gtk::make_managed<Gtk::Label>("Resort!");
     resort_button_.set_child(*label);
-    main_grid_.attach(resort_button_, 0 , 20, 20, 20);
+    resort_button_.set_margin(30);
+    data_grid_.attach(resort_button_, 0, 12, 3, 1);
 }
 
 void DataWindow::setStatsButton() {
     auto label = Gtk::make_managed<Gtk::Label>("View sort stats");
     statButtonSignal();
     view_stats_.set_child(*label);
-    main_grid_.attach(view_stats_, 20, 20, 20, 20);
+    view_stats_.set_margin(30);
+    data_grid_.attach(view_stats_, 4, 12, 4, 1);
 }
 
 // Action performed when clicking stat button
 //FIXME: Add sorting data
 void DataWindow::getStats() {
-    std::cout << "Getting stats..." << std::endl;
-    std::vector<float> v1 = {1, 2, 3, 4, 5}, v2 = {0, 2, 6, 7, 8};
     Graph graph;
-    graph.graphTimes(v1, v2);
+    graph.graphTimes(filtered_data_);
 }
 
 void DataWindow::statButtonSignal() {
@@ -104,8 +103,8 @@ void DataWindow::setTable() {
                             , "M-F ratio", "Lunch Type", "Student-to-Faculty ratio"};
 
     for (int i = 0; i < headers.size(); i++) {
-        auto label = Gtk::make_managed<Gtk::Label>(headers[i]);
-        label->set_use_underline(true);
+        auto label = Gtk::make_managed<Gtk::Label>("<span weight='bold'>" + headers[i] + "</span>");
+        label->set_use_markup(true);
         data_grid_.attach(*label, i, 0);
 
         auto separator = Gtk::make_managed<Gtk::Separator>(Gtk::Orientation::HORIZONTAL);
@@ -113,14 +112,18 @@ void DataWindow::setTable() {
     }
 
     for (int i = 0; i < std::min((int)filtered_data_.size(), 10); ++i) addRow(filtered_data_[i], i + 2);
-    main_grid_.attach(data_grid_, 0, 0, 1, 1);
 }
 
 void DataWindow::filterData(std::vector<School*>& schools_, bool max, std::string level,
                     std::string state, std::string sort_opt) {
-    filtered_data_ = Filereading::filterLevel(schools_, level);
-    filtered_data_ = Filereading::filterState(filtered_data_, state);
-    std::cout << "filtered data has size: " << filtered_data_.size() << std::endl;
+    if (level != "(Select School Grade)") {
+        filtered_data_ = Filereading::filterLevel(schools_, level);
+    } else {
+        filtered_data_ = schools_;
+    }
+
+    if (not state.empty())
+        filtered_data_ = Filereading::filterState(filtered_data_, state);
 }
 
 
