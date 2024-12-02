@@ -3,22 +3,14 @@
 std::function<bool(School*, School*)> getComparisonFunction(const std::string &attribute, bool ascending){
     return std::function<bool(School*, School*)>(
             [attribute, ascending](School* a, School* b) {
-                if (attribute == "School Name") {
-                    std::string nameA = a->schname;
-                    std::string nameB = b->schname;
-                    std::transform(nameA.begin(), nameA.end(), nameA.begin(), ::tolower);
-                    std::transform(nameB.begin(), nameB.end(), nameB.begin(), ::tolower);
-                    return ascending ? (nameA < nameB) : (nameA > nameB);
-                } else if (attribute == "Population") {
+                if (attribute == "Population") {
                     return ascending ? (a->population < b->population) : (a->population > b->population);
-                } else if (attribute == "City") {
-                    std::string nameA = a->city;
-                    std::string nameB = b->city;
-                    std::transform(nameA.begin(), nameA.end(), nameA.begin(), ::tolower);
-                    std::transform(nameB.begin(), nameB.end(), nameB.begin(), ::tolower);
-                    return ascending ? (nameA < nameB) : (nameA > nameB);
+                } else if (attribute == "Free/Reduced Lunch") {
+
+                    return ascending ? (a->freereducedlunch < b->freereducedlunch) : (a->freereducedlunch > b->freereducedlunch);
+                } else if (attribute == "Student-Faculty Ratio") {
+                    return ascending ? (a->studentfacratio < b->studentfacratio) : (a->studentfacratio > b->studentfacratio);
                 }
-                // whatever other variables we want
                 return false; // Default case
             }
     );
