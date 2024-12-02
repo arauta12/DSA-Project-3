@@ -114,6 +114,7 @@ void DataWindow::setTable() {
     for (int i = 0; i < std::min((int)filtered_data_.size(), 10); ++i) addRow(filtered_data_[i], i + 2);
 }
 
+//FIXME: Does this count for if they enter a non valid state?
 void DataWindow::filterData(std::vector<School*>& schools_, bool max, std::string level,
                     std::string state, std::string sort_opt) {
     if (level != "(Select School Grade)") {
