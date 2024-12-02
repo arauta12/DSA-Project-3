@@ -11,14 +11,17 @@ struct Graph{
         std::pair<std::vector<float>, std::vector<float>> times = dataCall(schools);
         std::vector<float> merge = times.first;
         std::vector<float> quick = times.second;
-        int size = merge.size();
+        int size = schools.size();
         int increment = std::max(5,size/10);
-        std::vector<float> x_axis;
-        for(int i = 1;i<size;i+=increment){
-            x_axis.push_back(i);
-        }
-        x_axis.push_back(size);
-        matplot::plot(x_axis, merge, quick);
+        int num_points = size/increment + 1;
+        std::vector<double> x_axis = matplot::linspace(0,size,num_points);
+        matplot::hold(true);
+        auto p1 = matplot::plot(x_axis,merge);
+        p1->display_name("Merge Sort");
+        auto p2 = matplot::plot(x_axis,quick);
+        p2->display_name("Quick Sort");
+
+        matplot::legend();
 
         matplot::show();
     }
