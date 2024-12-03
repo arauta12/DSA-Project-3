@@ -13,4 +13,8 @@
 1) In msys2 terminal, run this: pacman -S mingw-w64-x86_64-gtkmm-4.0
 2) Follow CMAKE to link it locally to your machine.
 
-# Krish P
+# How to Add Matplotplusplus
+1) Go to https://github.com/alandefreitas/matplotplusplus
+2) Clone the repository above in your local machine in a folder
+3) Move the folder to your C++ project directory
+4) Link as a subdirectory in CMAKE
