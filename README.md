@@ -19,3 +19,8 @@
 3) Then click path in system varialbes and edit
 4) Click new and then add the bin file path for msys and gnuplot
 5) Click ok until all windows are closed
+
+# How to run
+1) Click run and enter your sorting options and click sort
+2) If click view sort stats **MUST** close the graph window and press enter in the console in that order to continue (a matplot thing)
+3) Can continue sorting and resorting with other buttons on the GUI
