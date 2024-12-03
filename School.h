@@ -42,6 +42,6 @@ struct School{
     }
 
     bool checkBlank(){
-        return population == 0 or freereducedlunch == -1 or studentfacratio == -1 or stupop == "";
+        return population <= 0 or freereducedlunch <= -1 or studentfacratio <= -1 or stupop == "";
     }
 };
