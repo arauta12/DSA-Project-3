@@ -1,4 +1,3 @@
-//FIXME: We need to figure out a way to determine which variable we're comparing and make a min version
 #include "Sorting.h"
 std::function<bool(School*, School*)> getComparisonFunction(const std::string &attribute, bool ascending){
     return std::function<bool(School*, School*)>(
