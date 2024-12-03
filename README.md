@@ -5,7 +5,7 @@
 4) Run: pacman -S mingw-w64-x86_64-gcc
 5) Run: pacman -S mingw-w64-x86_64-pkg-config
 6) Add msys2/mingw64 path in environment variables
-7) Reconfigure toolchain (settings) to msys2/mingw64
+7) Reconfigure toolchain (CLoin settings) to msys2/mingw64 (ctrl+alt+s then change toolset to C:\msys64\mingw64)
 8) Run pacman -S mingw-w64-x86_64-gtkmm-4.0
 
 
@@ -19,3 +19,8 @@
 3) Then click path in system varialbes and edit
 4) Click new and then add the bin file path for msys and gnuplot
 5) Click ok until all windows are closed
+
+# How to run
+1) Click run and enter your sorting options and click sort
+2) If click view sort stats **MUST** close the graph window and press enter in the console in that order to continue (a matplot thing)
+3) Can continue sorting and resorting with other buttons on the GUI
