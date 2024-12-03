@@ -53,8 +53,12 @@ void DataWindow::setStatsButton() {
 
 // Action performed when clicking stat button
 void DataWindow::getStats() {
-    Graph graph;
-    graph.graphTimes(filtered_data_, sort_opt_, min_sort_);
+    if (filtered_data_.empty()) {
+        std::cout << "Cannot view on empty set!" << std::endl;
+    } else {
+        Graph graph;
+        graph.graphTimes(filtered_data_, sort_opt_, min_sort_);
+    }
 }
 
 // Link getStats function to stats button press
