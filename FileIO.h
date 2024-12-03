@@ -24,8 +24,9 @@ struct Filereading{
                 data.push_back(value);
             }
             School* school = new School(data);
-            if(school->status == "1")
+            if(school->status == "1" and !school->checkBlank()) {
                 schools.push_back(school);
+            }
             else
                 delete school;
 

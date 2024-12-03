@@ -40,4 +40,8 @@ struct School{
         if(stutofratio != "")
             studentfacratio = stof(stutofratio);
     }
+
+    bool checkBlank(){
+        return population == 0 or freereducedlunch == -1 or studentfacratio == -1 or stupop == "";
+    }
 };
