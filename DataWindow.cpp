@@ -2,6 +2,7 @@
 // Created by andre on 11/16/2024.
 //
 
+#undef ERROR  // To avoid namespace conflict errors
 #include "DataWindow.h"
 #include "FileIO.h"
 #include "Graphing.h"

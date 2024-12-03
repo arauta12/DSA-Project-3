@@ -4,6 +4,7 @@
 // Search icon from: https://icon-library.com/icon/magnifying-glass-icon-transparent-29.html
 //
 
+#undef ERROR  // To avoid namespace conflict errors
 #include "HomeWindow.h"
 #include "DataWindow.h"
 
