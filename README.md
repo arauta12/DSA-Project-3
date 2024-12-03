@@ -24,3 +24,4 @@
 1) Click run and enter your sorting options and click sort
 2) If click view sort stats **MUST** close the graph window and press enter in the console in that order to continue (a matplot thing)
 3) Can continue sorting and resorting with other buttons on the GUI
+4) For the graph may have to readjust window size to see both axis titles
