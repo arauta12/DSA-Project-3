@@ -9,7 +9,7 @@
 
 struct Filereading{
     static void readFile(std::vector<School*>& schools){
-        std::ifstream file("Public_School_Characteristics_-_Current.csv");
+        std::ifstream file("..\\cmake-build-debug\\Public_School_Characteristics_-_Current.csv");
         std::string line;
         bool first = true;
         while(getline(file,line)){
