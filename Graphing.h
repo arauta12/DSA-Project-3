@@ -35,6 +35,8 @@ struct Graph{
         int i = increment;
         std::vector<float> merge_time;
         std::vector<float> quick_time;
+        merge_time.push_back(0);
+        quick_time.push_back(0);
         auto compare_function = getComparisonFunction(comparer,ascending);
         while(i<size){
             std::vector<School*> temp_m(schools.begin(),schools.begin()+i);
@@ -51,6 +53,19 @@ struct Graph{
             quick_time.push_back(duration.count());
             i+=increment;
         }
+        i = size - 1;
+        std::vector<School*> temp_m(schools.begin(),schools.begin()+i);
+        std::vector<School*> temp_q(schools.begin(),schools.begin()+i);
+        auto start = std::chrono::high_resolution_clock::now();
+        mergeSort(temp_m,0,temp_m.size()-1,compare_function);
+        auto end = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<float> duration = end - start;
+        merge_time.push_back(duration.count());
+        start = std::chrono::high_resolution_clock::now();
+        quickSort(temp_q,0,temp_q.size()-1,compare_function);
+        end = std::chrono::high_resolution_clock::now();
+        duration = end - start;
+        quick_time.push_back(duration.count());
         return make_pair(merge_time,quick_time); //comment so I can push
     }
 };
