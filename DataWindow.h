@@ -15,7 +15,9 @@ class DataWindow : public Gtk::Window {
     Gtk::Grid data_grid_;
     Gtk::Button resort_button_;
     Gtk::Button view_stats_;
+
     std::vector<School*> filtered_data_;
+
     bool min_sort_;
     std::string level_;
     std::string sort_opt_;
@@ -28,8 +30,7 @@ protected:
     void setTable();
     void addRow(School* s, int r);
     void getStats();
-    void filterData(std::vector<School*>& schools_, bool max, std::string level,
-                    std::string state, std::string sort_opt);
+    void filterData(std::vector<School*>& schools_, std::string state);
 public:
     DataWindow(std::vector<School*>& schools_, bool max, std::string level,
                     std::string state, std::string sort_opt);

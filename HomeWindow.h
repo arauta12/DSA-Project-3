@@ -19,6 +19,7 @@ class HomeWindow : public Gtk::Window {
     Gtk::ComboBoxText sort_options_;
     Gtk::CheckButton* max_;
     Gtk::CheckButton* min_;
+
     std::vector<School*> schools_;
 protected:
     void setHomeImage();
