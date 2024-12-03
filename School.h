@@ -4,6 +4,7 @@
 #pragma once
 
 struct School{
+    //All the columns in the csv, all are read for code simplicity
     std::string x, y, objid, ncessch, yr, stabr, leaid, stid, lea_name, schname, street, street2, city, state, zip, zip4,
             phone, charter, virt, gslo, gshi, level, status, schtype, schstat, towntype, county, totfrlunch, freelunch, reducedlunch,
             directcert, pk, k, first, second, third, fourth, fifth, sixth, seventh, eighth, ninth, tenth, eleventh, twelfth, thirteenth,
@@ -14,7 +15,9 @@ struct School{
     float freereducedlunch, studentfacratio;
 
     //Important string values are schname, street, city, state, level
-    //Important float values are population, freereducedlunch, and studentfacratio
+    //Important number values are population, freereducedlunch, and studentfacratio
+
+    //Constructor takes a vector of strings and stores all the values
     School(std::vector<std::string> values){
         int i = 0;
         x = values[i++]; y = values[i++]; objid = values[i++]; ncessch = values[i++]; yr = values[i++];
@@ -33,6 +36,7 @@ struct School{
         hi = values[i++]; tralm = values[i++]; tralf = values[i++]; tr = values[i++]; whalm = values[i++]; whalf = values[i++];
         wh = values[i++]; lat = values[i++]; lon = values[i++];
 
+        //If the string is not empty convert it to numbers
         if(stupop != "")
             population = stoi(stupop);
         if(totfrlunch != "")
@@ -41,6 +45,7 @@ struct School{
             studentfacratio = stof(stutofratio);
     }
 
+    //Is used to make sure a school is not invalid/incomplete
     bool checkBlank(){
         return population <= 0 or freereducedlunch <= -1 or studentfacratio <= -1 or stupop == "";
     }
