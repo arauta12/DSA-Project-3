@@ -12,7 +12,7 @@ struct Graph{
         std::vector<float> merge = times.first;
         std::vector<float> quick = times.second;
         int size = schools.size();
-        int increment = std::max(5,size/10);
+        int increment = std::max(5,size/29);
         int num_points = size/increment + 1;
         std::vector<double> x_axis = matplot::linspace(0,size,num_points);
         matplot::hold(true);
@@ -31,7 +31,7 @@ struct Graph{
 
     std::pair<std::vector<float>,std::vector<float>> dataCall(std::vector<School*> schools, std::string comparer, bool ascending){ //This is an un sorted version so we may have to change how we sort
         int size = schools.size();
-        int increment = std::max(5,size/10);
+        int increment = std::max(5,size/29);
         int i = increment;
         std::vector<float> merge_time;
         std::vector<float> quick_time;

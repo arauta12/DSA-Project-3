@@ -91,11 +91,10 @@ void HomeWindow::setSortOptions() {
     main_grid_.attach(label, 8, 10, 4, 4);
 
     // Sort Options
-    sort_options_.append("(Select Sort Category)");
     sort_options_.append("Population");
     sort_options_.append("Free/reduced lunch");
     sort_options_.append("Student-to-Faculty");
-    sort_options_.set_active_text("(Select Sort Category)");
+    sort_options_.set_active_text("Population");
     filters_.set_margin(5);
 
     main_grid_.attach(sort_options_, 8, 15, 4, 4);

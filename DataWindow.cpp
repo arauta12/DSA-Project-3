@@ -5,9 +5,11 @@
 #include "DataWindow.h"
 #include "FileIO.h"
 #include "Graphing.h"
+#include "Sorting.h"
 
 DataWindow::DataWindow(std::vector<School*>& schools_, bool max, std::string level,
-                    std::string state, std::string sort_opt) {
+                    std::string state, std::string sort_opt) : min_sort_(not max), level_(level),
+                    sort_opt_(sort_opt) {
 
     // Setting basic window properties
     set_title("Query Results");
@@ -48,10 +50,9 @@ void DataWindow::setStatsButton() {
 }
 
 // Action performed when clicking stat button
-//FIXME: Add sorting data
 void DataWindow::getStats() {
     Graph graph;
-    graph.graphTimes(filtered_data_);
+    graph.graphTimes(filtered_data_, sort_opt_, min_sort_);
 }
 
 void DataWindow::statButtonSignal() {
@@ -76,7 +77,7 @@ void DataWindow::addRow(School* s, int r) {
 
     int total = s->population;
     std::string res = "N/A";
-    if (total > 0) {
+    if (total > 0 and not s->totmen.empty() and not s->totfem.empty()) {
         int m_ratio = round(stof(s->totmen)/total * 100);
         int f_ratio = round(stof(s->totfem)/total * 100);
         res = std::to_string(m_ratio) + ":" + std::to_string(f_ratio);
@@ -84,20 +85,22 @@ void DataWindow::addRow(School* s, int r) {
     label = Gtk::make_managed<Gtk::Label>(res);
     data_grid_.attach(*label, 5, r);
 
-    res = "N/A";
-    if ((int)s->freereducedlunch > 0) res = std::to_string((int)s->freereducedlunch);
+    res = std::to_string((int)s->freereducedlunch);
     label = Gtk::make_managed<Gtk::Label>(res);
     data_grid_.attach(*label, 6, r);
 
-    res = "N/A";
-    if ((int)s->studentfacratio > 0) res = std::to_string((int)s->studentfacratio);
+    res = std::to_string((int)s->studentfacratio);
     label = Gtk::make_managed<Gtk::Label>(res);
     data_grid_.attach(*label, 7, r);
 }
 
-//FIXME: Move to Home?
 void DataWindow::setTable() {
     data_grid_.set_column_spacing(5);
+
+    std::cout << sort_opt_ << std::endl;
+    std::cout << std::boolalpha << min_sort_ << std::endl;
+    std::vector<School*> cpy_filtered_ = filtered_data_;
+    mergeSort(cpy_filtered_, 0, cpy_filtered_.size() - 1, getComparisonFunction(sort_opt_, min_sort_));
 
     std::vector<std::string> headers = {"School Name", "City", "County", "Grade Levels", "Students"
                             , "M-F ratio", "Lunch Type", "Student-to-Faculty ratio"};
@@ -111,10 +114,9 @@ void DataWindow::setTable() {
         data_grid_.attach(*separator, i, 1);
     }
 
-    for (int i = 0; i < std::min((int)filtered_data_.size(), 10); ++i) addRow(filtered_data_[i], i + 2);
+    for (int i = 0; i < std::min((int)cpy_filtered_.size(), 10); ++i) addRow(cpy_filtered_[i], i + 2);
 }
 
-//FIXME: Does this count for if they enter a non valid state?
 void DataWindow::filterData(std::vector<School*>& schools_, bool max, std::string level,
                     std::string state, std::string sort_opt) {
     if (level != "(Select School Grade)") {

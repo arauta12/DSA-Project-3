@@ -4,10 +4,10 @@ std::function<bool(School*, School*)> getComparisonFunction(const std::string &a
             [attribute, ascending](School* a, School* b) {
                 if (attribute == "Population") {
                     return ascending ? (a->population < b->population) : (a->population > b->population);
-                } else if (attribute == "Free/Reduced Lunch") {
+                } else if (attribute == "Free/reduced lunch") {
 
                     return ascending ? (a->freereducedlunch < b->freereducedlunch) : (a->freereducedlunch > b->freereducedlunch);
-                } else if (attribute == "Student-Faculty Ratio") {
+                } else if (attribute == "Student-to-Faculty") {
                     return ascending ? (a->studentfacratio < b->studentfacratio) : (a->studentfacratio > b->studentfacratio);
                 }
                 return false; // Default case

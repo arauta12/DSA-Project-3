@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include <gtkmm-4.0/gtkmm.h>
+#include <string>
 
 #include "School.h"
 
@@ -15,6 +16,9 @@ class DataWindow : public Gtk::Window {
     Gtk::Button resort_button_;
     Gtk::Button view_stats_;
     std::vector<School*> filtered_data_;
+    bool min_sort_;
+    std::string level_;
+    std::string sort_opt_;
 protected:
     void setResortSignal();
     void resortFunction();
