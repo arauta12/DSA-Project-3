@@ -5,7 +5,7 @@
 4) Run: pacman -S mingw-w64-x86_64-gcc
 5) Run: pacman -S mingw-w64-x86_64-pkg-config
 6) Add msys2/mingw64 path in environment variables
-7) Reconfigure toolchain (settings) to msys2/mingw64
+7) Reconfigure toolchain (CLoin settings) to msys2/mingw64 (ctrl+alt+s then change toolset to C:\msys64\mingw64)
 8) Run pacman -S mingw-w64-x86_64-gtkmm-4.0
 
 
